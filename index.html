@@ -3,114 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Teuku Dashboard</title>
+<title>Teuku Management System</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
 body{background:#0b1120;color:white}
+button{cursor:pointer;border:0}
 
-/* LOGIN */
 .login{
 height:100vh;display:flex;justify-content:center;align-items:center;
 background:linear-gradient(135deg,#020617,#172554)
 }
 .login-box{
-width:340px;background:#111827;padding:35px;border-radius:25px;
-text-align:center;box-shadow:0 20px 50px #0008
+width:350px;background:#111827;padding:35px;border-radius:25px;
+text-align:center;box-shadow:0 20px 60px #0008
 }
-.login-box h1{color:#38bdf8;margin-bottom:10px}
-input,textarea{
-width:100%;padding:13px;margin:8px 0;border:1px solid #334155;
-border-radius:10px;background:#0f172a;color:white
+.login-box h1{color:#38bdf8;margin-bottom:8px}
+.login-box p{color:#94a3b8;margin-bottom:20px}
+input,textarea,select{
+width:100%;padding:12px;margin:7px 0;
+border:1px solid #334155;border-radius:10px;
+background:#0f172a;color:white
 }
-button{
-background:#0284c7;color:white;border:0;padding:12px 25px;
-border-radius:12px;cursor:pointer
+.login-btn,.primary{
+background:#0284c7;color:white;padding:12px 25px;
+border-radius:10px;width:100%
 }
-button:hover{background:#0369a1}
+.login-btn:hover,.primary:hover{background:#0369a1}
+#error{color:#f87171;margin-top:10px}
 
-/* DASHBOARD */
-#dashboard{display:none}
+#app{display:none}
 
 .sidebar{
 position:fixed;left:0;top:0;width:240px;height:100vh;
-background:#0f172a;border-right:1px solid #1e293b;padding:25px 15px
+background:#0f172a;border-right:1px solid #1e293b;
+padding:25px 15px
 }
-.logo{
-font-size:24px;font-weight:bold;color:#38bdf8;
-padding:10px 15px 35px
-}
+.logo{font-size:24px;font-weight:bold;color:#38bdf8;padding:10px 15px 35px}
 .menu a{
 display:block;color:#94a3b8;text-decoration:none;
-padding:14px 16px;margin:7px 0;border-radius:12px
+padding:14px 16px;margin:6px 0;border-radius:12px
 }
-.menu a:hover,.menu a.active{
-background:#0284c7;color:white
-}
+.menu a:hover,.menu a.active{background:#0284c7;color:white}
 .logout{
 position:absolute;bottom:25px;left:15px;right:15px;
-background:#1e293b;text-align:center;padding:13px;
-border-radius:12px;color:#f87171;cursor:pointer
+padding:13px;text-align:center;border-radius:12px;
+background:#1e293b;color:#f87171
 }
 
-.main{
-margin-left:240px;padding:35px
-}
+.main{margin-left:240px;padding:30px}
 .top{
 display:flex;justify-content:space-between;align-items:center;
-margin-bottom:35px
+margin-bottom:30px
 }
-.top h1{font-size:30px}
 .profile{
 background:#111827;padding:12px 18px;border-radius:15px;
 color:#38bdf8
 }
-
 .page{display:none}
 .page.active{display:block}
 
-/* HOME */
 .hero{
-background:linear-gradient(135deg,#0c4a6e,#172554);
-padding:40px;border-radius:25px;margin-bottom:25px
+padding:40px;border-radius:25px;margin-bottom:25px;
+background:linear-gradient(135deg,#075985,#172554)
 }
-.hero h2{font-size:38px;margin-bottom:10px}
+.hero h2{font-size:35px;margin-bottom:10px}
 .hero span{color:#67e8f9}
-.hero p{color:#cbd5e1}
 
 .cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:20px
 }
 .card{
 background:#111827;border:1px solid #1e293b;
 padding:25px;border-radius:20px
 }
-.card:hover{transform:translateY(-5px);transition:.3s}
-.icon{font-size:35px;margin-bottom:15px}
+.card:hover{transform:translateY(-4px);transition:.3s}
+.icon{font-size:32px;margin-bottom:12px}
 .card h3{color:#38bdf8;margin-bottom:8px}
 .card p{color:#94a3b8}
 
-/* LAPORAN */
-.report{
-max-width:750px;background:#111827;padding:30px;
-border-radius:25px;border:1px solid #1e293b
+.box{
+background:#111827;border:1px solid #1e293b;
+padding:25px;border-radius:20px;margin-top:20px
 }
-.report h2{color:#38bdf8;margin-bottom:10px}
-.date{color:#94a3b8;margin-bottom:20px}
-textarea{height:180px;resize:none}
-.result{
-margin-top:15px;color:#4ade80
+.box h2{color:#38bdf8;margin-bottom:15px}
+
+.item{
+background:#0f172a;border:1px solid #1e293b;
+padding:15px;border-radius:12px;margin-top:10px
+}
+.item small{color:#64748b}
+
+.actions{display:flex;gap:10px;margin-top:10px}
+.actions button{padding:9px 14px;border-radius:8px}
+.delete{background:#dc2626;color:white}
+.done{background:#16a34a;color:white}
+
+.stat{
+font-size:30px;font-weight:bold;color:#38bdf8
 }
 
-/* ABOUT */
-.about{
-max-width:750px;background:#111827;padding:30px;
-border-radius:25px;line-height:1.8;color:#cbd5e1
+.toggle{
+background:#334155;color:white;padding:10px 15px;
+border-radius:10px
 }
 
-/* MOBILE */
 @media(max-width:700px){
 .sidebar{width:70px;padding:15px 8px}
 .logo{font-size:0;text-align:center}
@@ -119,10 +117,10 @@ border-radius:25px;line-height:1.8;color:#cbd5e1
 .menu a:first-letter{font-size:22px}
 .logout{font-size:0}
 .logout:first-letter{font-size:20px}
-.main{margin-left:70px;padding:20px}
-.top h1{font-size:22px}
+.main{margin-left:70px;padding:18px}
+.top h1{font-size:21px}
 .profile{font-size:12px}
-.hero h2{font-size:30px}
+.hero h2{font-size:28px}
 }
 </style>
 </head>
@@ -130,17 +128,18 @@ border-radius:25px;line-height:1.8;color:#cbd5e1
 <body>
 
 <!-- LOGIN -->
+
 <div class="login" id="login">
 
 <div class="login-box">
 
 <h1>TEUKU.</h1>
-<p>Personal Dashboard</p>
+<p>Management System</p>
 
 <input id="username" placeholder="Username">
 <input id="password" type="password" placeholder="Password">
 
-<button onclick="login()">Masuk</button>
+<button class="login-btn" onclick="login()">MASUK</button>
 
 <p id="error"></p>
 
@@ -148,25 +147,29 @@ border-radius:25px;line-height:1.8;color:#cbd5e1
 </div>
 
 
-<!-- DASHBOARD -->
-<div id="dashboard">
+<!-- APP -->
 
-<!-- SIDEBAR -->
+<div id="app">
+
 <div class="sidebar">
 
 <div class="logo">TEUKU.</div>
 
 <div class="menu">
 
-<a href="#" class="active" onclick="showPage('home',this)">🏠 Home</a>
+<a href="#" class="active" onclick="page('home',this)">🏠 Home</a>
 
-<a href="#" onclick="showPage('about',this)">👤 About</a>
+<a href="#" onclick="page('laporan',this)">📝 Laporan</a>
 
-<a href="#" onclick="showPage('skill',this)">💻 Skills</a>
+<a href="#" onclick="page('tugas',this)">✅ Tugas</a>
 
-<a href="#" onclick="showPage('laporan',this)">📋 Laporan</a>
+<a href="#" onclick="page('jadwal',this)">📅 Jadwal</a>
 
-<a href="#" onclick="showPage('project',this)">🚀 Project</a>
+<a href="#" onclick="page('statistik',this)">📊 Statistik</a>
+
+<a href="#" onclick="page('profil',this)">👤 Profil</a>
+
+<a href="#" onclick="page('pengaturan',this)">⚙️ Pengaturan</a>
 
 </div>
 
@@ -175,29 +178,24 @@ border-radius:25px;line-height:1.8;color:#cbd5e1
 </div>
 
 
-<!-- CONTENT -->
 <div class="main">
 
 <div class="top">
-
-<h1 id="judul">Dashboard</h1>
-
-<div class="profile">
-👨‍💻 Teuku
-</div>
-
+<h1 id="title">Dashboard</h1>
+<div class="profile">👨‍💻 Admin</div>
 </div>
 
 
 <!-- HOME -->
+
 <div class="page active" id="home">
 
 <div class="hero">
 
-<h2>Halo, <span>Teuku!</span> 👋</h2>
+<h2>Selamat datang, <span>Admin!</span> 👋</h2>
 
 <p>
-Selamat datang di dashboard pribadi saya.
+Kelola laporan, tugas dan kegiatan kamu dari satu dashboard.
 </p>
 
 </div>
@@ -205,89 +203,31 @@ Selamat datang di dashboard pribadi saya.
 <div class="cards">
 
 <div class="card">
-<div class="icon">📚</div>
-<h3>Pelajar</h3>
-<p>11 TJKT 4</p>
+<div class="icon">📝</div>
+<h3>Laporan</h3>
+<div class="stat" id="jumlahLaporan">0</div>
+<p>Total laporan</p>
 </div>
 
 <div class="card">
-<div class="icon">🌐</div>
-<h3>Networking</h3>
-<p>Belajar jaringan komputer</p>
+<div class="icon">✅</div>
+<h3>Tugas</h3>
+<div class="stat" id="jumlahTugas">0</div>
+<p>Total tugas</p>
 </div>
 
 <div class="card">
-<div class="icon">🐧</div>
-<h3>Linux</h3>
-<p>Debian Linux</p>
+<div class="icon">📅</div>
+<h3>Jadwal</h3>
+<div class="stat">Aktif</div>
+<p>Jadwal belajar</p>
 </div>
 
 <div class="card">
-<div class="icon">🖥️</div>
-<h3>Server</h3>
-<p>Web Server aktif</p>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ABOUT -->
-<div class="page" id="about">
-
-<div class="about">
-
-<h2>👤 Tentang Saya</h2>
-
-<br>
-
-<p>
-Nama saya <b>Teuku Aulia Syahlendra</b>.
-Saya adalah siswa kelas <b>11 TJKT 4</b>.
-</p>
-
-<p>
-Saya sedang mempelajari jaringan komputer,
-Linux, MikroTik, HTML, CSS dan web server.
-</p>
-
-</div>
-
-</div>
-
-
-<!-- SKILLS -->
-<div class="page" id="skill">
-
-<h2>💻 My Skills</h2>
-
-<br>
-
-<div class="cards">
-
-<div class="card">
-<div class="icon">🌐</div>
-<h3>Networking</h3>
-<p>IP Address, LAN dan jaringan.</p>
-</div>
-
-<div class="card">
-<div class="icon">📡</div>
-<h3>MikroTik</h3>
-<p>Konfigurasi router dan jaringan.</p>
-</div>
-
-<div class="card">
-<div class="icon">🐧</div>
-<h3>Linux</h3>
-<p>Debian dan terminal Linux.</p>
-</div>
-
-<div class="card">
-<div class="icon">💻</div>
-<h3>Web</h3>
-<p>HTML, CSS dan Web Server.</p>
+<div class="icon">🟢</div>
+<h3>Status</h3>
+<div class="stat">Online</div>
+<p>System aktif</p>
 </div>
 
 </div>
@@ -296,56 +236,183 @@ Linux, MikroTik, HTML, CSS dan web server.
 
 
 <!-- LAPORAN -->
+
 <div class="page" id="laporan">
 
-<div class="report">
+<div class="box">
 
-<h2>📋 Laporan Hari Ini</h2>
+<h2>📝 Laporan Hari Ini</h2>
 
-<p class="date" id="tanggal"></p>
+<p id="tanggal"></p>
 
-<textarea id="kegiatan"
-placeholder="Tuliskan apa yang kamu lakukan hari ini..."></textarea>
+<textarea id="laporanText"
+placeholder="Apa yang kamu lakukan hari ini?"></textarea>
 
-<button onclick="simpan()">💾 Simpan Laporan</button>
+<button class="primary" onclick="tambahLaporan()">
++ Simpan Laporan
+</button>
 
-<p class="result" id="hasil"></p>
+</div>
+
+<div class="box">
+
+<h2>📚 Riwayat Laporan</h2>
+
+<input id="cari"
+placeholder="🔎 Cari laporan..."
+onkeyup="tampilkanLaporan()">
+
+<div id="listLaporan"></div>
 
 </div>
 
 </div>
 
 
-<!-- PROJECT -->
-<div class="page" id="project">
+<!-- TUGAS -->
 
-<h2>🚀 Project Saya</h2>
+<div class="page" id="tugas">
 
-<br>
+<div class="box">
+
+<h2>✅ Daftar Tugas</h2>
+
+<input id="tugasInput" placeholder="Contoh: Praktik konfigurasi MikroTik">
+
+<button class="primary" onclick="tambahTugas()">
++ Tambah Tugas
+</button>
+
+<div id="listTugas"></div>
+
+</div>
+
+</div>
+
+
+<!-- JADWAL -->
+
+<div class="page" id="jadwal">
+
+<div class="box">
+
+<h2>📅 Jadwal Belajar</h2>
+
+<div class="item">
+<b>Senin</b>
+<p>Networking</p>
+</div>
+
+<div class="item">
+<b>Selasa</b>
+<p>Linux Debian</p>
+</div>
+
+<div class="item">
+<b>Rabu</b>
+<p>MikroTik</p>
+</div>
+
+<div class="item">
+<b>Kamis</b>
+<p>Web Development</p>
+</div>
+
+<div class="item">
+<b>Jumat</b>
+<p>Praktik TJKT</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- STATISTIK -->
+
+<div class="page" id="statistik">
+
+<div class="box">
+
+<h2>📊 Statistik</h2>
 
 <div class="cards">
 
 <div class="card">
-<div class="icon">🌐</div>
-<h3>Web Server</h3>
-<p>Web server menggunakan Debian dan Python.</p>
+<h3>Total Laporan</h3>
+<div class="stat" id="statLaporan">0</div>
 </div>
 
 <div class="card">
-<div class="icon">📡</div>
-<h3>Jaringan</h3>
-<p>Praktik konfigurasi jaringan komputer.</p>
+<h3>Total Tugas</h3>
+<div class="stat" id="statTugas">0</div>
 </div>
 
 <div class="card">
-<div class="icon">💻</div>
-<h3>Portfolio</h3>
-<p>Website portfolio pribadi.</p>
+<h3>Server</h3>
+<div class="stat">Online</div>
 </div>
 
 </div>
 
 </div>
+
+</div>
+
+
+<!-- PROFIL -->
+
+<div class="page" id="profil">
+
+<div class="box">
+
+<h2>👤 Profil</h2>
+
+<div class="item">
+<b>Nama</b>
+<p>Teuku Aulia Syahlendra</p>
+</div>
+
+<div class="item">
+<b>Kelas</b>
+<p>11 TJKT 4</p>
+</div>
+
+<div class="item">
+<b>Jurusan</b>
+<p>Teknik Jaringan Komputer dan Telekomunikasi</p>
+</div>
+
+<div class="item">
+<b>Role</b>
+<p>Administrator</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PENGATURAN -->
+
+<div class="page" id="pengaturan">
+
+<div class="box">
+
+<h2>⚙️ Pengaturan</h2>
+
+<p>Mode tampilan</p>
+
+<br>
+
+<button class="toggle" onclick="darkMode()">
+🌙 Toggle Dark Mode
+</button>
+
+</div>
+
+</div>
+
 
 </div>
 </div>
@@ -353,15 +420,21 @@ placeholder="Tuliskan apa yang kamu lakukan hari ini..."></textarea>
 
 <script>
 
+let laporan=JSON.parse(localStorage.getItem("laporan")||"[]");
+let tugas=JSON.parse(localStorage.getItem("tugas")||"[]");
+
+
 function login(){
 
-let user=document.getElementById("username").value;
-let pass=document.getElementById("password").value;
+let u=document.getElementById("username").value;
+let p=document.getElementById("password").value;
 
-if(user=="teuku" && pass=="12345"){
+if(u==="admin" && p==="12345678"){
 
 document.getElementById("login").style.display="none";
-document.getElementById("dashboard").style.display="block";
+document.getElementById("app").style.display="block";
+
+update();
 
 }else{
 
@@ -373,43 +446,43 @@ document.getElementById("error").innerHTML=
 }
 
 
-function showPage(page,element){
+function logout(){
+location.reload();
+}
+
+
+function page(id,el){
 
 document.querySelectorAll(".page")
 .forEach(x=>x.classList.remove("active"));
 
-document.getElementById(page)
-.classList.add("active");
+document.getElementById(id).classList.add("active");
 
 document.querySelectorAll(".menu a")
 .forEach(x=>x.classList.remove("active"));
 
-element.classList.add("active");
+el.classList.add("active");
 
-let names={
+let title={
 home:"Dashboard",
-about:"Tentang Saya",
-skill:"My Skills",
-laporan:"Laporan Hari Ini",
-project:"Project Saya"
+laporan:"Laporan",
+tugas:"Daftar Tugas",
+jadwal:"Jadwal",
+statistik:"Statistik",
+profil:"Profil",
+pengaturan:"Pengaturan"
 };
 
-document.getElementById("judul").innerHTML=names[page];
+document.getElementById("title").innerHTML=title[id];
+
+if(id==="laporan")tampilkanLaporan();
+if(id==="tugas")tampilkanTugas();
 
 }
 
-
-function logout(){
-
-location.reload();
-
-}
-
-
-let now=new Date();
 
 document.getElementById("tanggal").innerHTML=
-now.toLocaleDateString("id-ID",{
+new Date().toLocaleDateString("id-ID",{
 weekday:"long",
 year:"numeric",
 month:"long",
@@ -417,28 +490,168 @@ day:"numeric"
 });
 
 
-function simpan(){
+function tambahLaporan(){
 
-let text=document.getElementById("kegiatan").value;
+let text=document.getElementById("laporanText").value;
 
-if(text==""){
-document.getElementById("hasil").innerHTML=
-"⚠️ Tulis laporan terlebih dahulu!";
-return;
+if(!text)return;
+
+laporan.push({
+text:text,
+tanggal:new Date().toLocaleString("id-ID")
+});
+
+localStorage.setItem("laporan",JSON.stringify(laporan));
+
+document.getElementById("laporanText").value="";
+
+update();
+tampilkanLaporan();
+
 }
 
-localStorage.setItem("laporan",text);
 
-document.getElementById("hasil").innerHTML=
-"✅ Laporan berhasil disimpan!";
+function tampilkanLaporan(){
+
+let cari=document.getElementById("cari").value.toLowerCase();
+
+let html="";
+
+laporan.forEach((x,i)=>{
+
+if(x.text.toLowerCase().includes(cari)){
+
+html+=`
+<div class="item">
+<b>📝 Laporan</b>
+<p>${x.text}</p>
+<small>${x.tanggal}</small>
+
+<div class="actions">
+<button class="delete" onclick="hapusLaporan(${i})">
+Hapus
+</button>
+</div>
+
+</div>`;
+}
+
+});
+
+document.getElementById("listLaporan").innerHTML=
+html||"<p>Belum ada laporan.</p>";
 
 }
 
 
-let old=localStorage.getItem("laporan");
+function hapusLaporan(i){
 
-if(old){
-document.getElementById("kegiatan").value=old;
+laporan.splice(i,1);
+
+localStorage.setItem("laporan",JSON.stringify(laporan));
+
+update();
+tampilkanLaporan();
+
+}
+
+
+function tambahTugas(){
+
+let text=document.getElementById("tugasInput").value;
+
+if(!text)return;
+
+tugas.push({
+text:text,
+selesai:false
+});
+
+localStorage.setItem("tugas",JSON.stringify(tugas));
+
+document.getElementById("tugasInput").value="";
+
+update();
+tampilkanTugas();
+
+}
+
+
+function tampilkanTugas(){
+
+let html="";
+
+tugas.forEach((x,i)=>{
+
+html+=`
+<div class="item">
+
+<b>${x.selesai?"✅":"⬜"} ${x.text}</b>
+
+<div class="actions">
+
+<button class="done"
+onclick="selesai(${i})">
+${x.selesai?"Belum selesai":"Selesai"}
+</button>
+
+<button class="delete"
+onclick="hapusTugas(${i})">
+Hapus
+</button>
+
+</div>
+
+</div>`;
+
+});
+
+document.getElementById("listTugas").innerHTML=
+html||"<p>Belum ada tugas.</p>";
+
+}
+
+
+function selesai(i){
+
+tugas[i].selesai=!tugas[i].selesai;
+
+localStorage.setItem("tugas",JSON.stringify(tugas));
+
+update();
+tampilkanTugas();
+
+}
+
+
+function hapusTugas(i){
+
+tugas.splice(i,1);
+
+localStorage.setItem("tugas",JSON.stringify(tugas));
+
+update();
+tampilkanTugas();
+
+}
+
+
+function update(){
+
+document.getElementById("jumlahLaporan").innerHTML=laporan.length;
+document.getElementById("jumlahTugas").innerHTML=tugas.length;
+document.getElementById("statLaporan").innerHTML=laporan.length;
+document.getElementById("statTugas").innerHTML=tugas.length;
+
+}
+
+
+function darkMode(){
+
+document.body.style.background=
+document.body.style.background==="white"
+?"#0b1120":"#111827";
+
 }
 
 </script>
