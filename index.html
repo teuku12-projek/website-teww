@@ -3,90 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NOC Network Operations Center</title>
+<title>NOC Pro Dashboard</title>
 
 <style>
 *{box-sizing:border-box}
 body{
  margin:0;
- font-family:Arial,Helvetica,sans-serif;
- background:#0b1120;
+ font-family:Arial,sans-serif;
+ background:#080f1f;
  color:#e5e7eb;
 }
-button,input,textarea,select{
- font:inherit;
-}
-button{
- cursor:pointer;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
 .login{
  min-height:100vh;
  display:flex;
- align-items:center;
  justify-content:center;
+ align-items:center;
  background:linear-gradient(135deg,#020617,#172554);
 }
 .loginbox{
- width:350px;
+ width:360px;
  padding:30px;
  background:#111827;
  border:1px solid #334155;
  border-radius:18px;
- box-shadow:0 20px 60px #0008;
-}
-.loginbox h1{
- margin-top:0;
+ box-shadow:0 20px 70px #0008;
 }
 .loginbox input{
  width:100%;
  padding:13px;
- margin:8px 0;
- background:#1e293b;
- border:1px solid #475569;
- color:white;
+ margin:7px 0;
+ border:1px solid #334155;
  border-radius:8px;
+ background:#0f172a;
+ color:white;
 }
-.primary{
+.btn{
+ border:0;
+ border-radius:8px;
+ padding:10px 15px;
  background:#2563eb;
  color:white;
- border:0;
- padding:11px 16px;
- border-radius:8px;
 }
-.primary:hover{background:#1d4ed8}
-.error{color:#f87171}
+.btn:hover{background:#1d4ed8}
 
 .sidebar{
  position:fixed;
  left:0;
  top:0;
  bottom:0;
- width:250px;
- background:#020617;
- border-right:1px solid #1e293b;
+ width:245px;
  padding:18px;
  overflow-y:auto;
+ background:#020617;
+ border-right:1px solid #1e293b;
 }
 .logo{
  font-size:21px;
  font-weight:bold;
- margin-bottom:20px;
+ margin-bottom:22px;
 }
 .logo small{
  display:block;
- font-size:11px;
  color:#64748b;
+ font-size:11px;
  margin-top:5px;
 }
 .nav{
  width:100%;
- text-align:left;
  border:0;
  background:transparent;
  color:#cbd5e1;
- padding:11px;
+ padding:10px;
  margin:2px 0;
  border-radius:8px;
+ text-align:left;
 }
 .nav:hover,.nav.active{
  background:#1e3a8a;
@@ -94,66 +87,56 @@ button{
 }
 .section{
  color:#64748b;
- font-size:11px;
- margin:18px 8px 6px;
+ font-size:10px;
+ margin:17px 7px 5px;
  text-transform:uppercase;
 }
 
 .main{
- margin-left:250px;
- padding:25px;
-}
-.topbar{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- margin-bottom:20px;
-}
-.status{
- color:#4ade80;
- font-size:13px;
+ margin-left:245px;
+ padding:24px;
 }
 .page{display:none}
 .page.active{display:block}
 
+.topbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:22px;
+}
+.topbar h1{margin:0}
+.online{color:#4ade80}
+.offline{color:#f87171}
+.warning{color:#facc15}
+.blue{color:#60a5fa}
+
 .cards{
  display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:15px;
- margin-bottom:20px;
+ grid-template-columns:repeat(5,1fr);
+ gap:14px;
+ margin-bottom:18px;
 }
 .card{
  background:#111827;
  border:1px solid #1e293b;
- padding:20px;
  border-radius:14px;
+ padding:18px;
 }
 .card h3{
- margin:0;
  color:#94a3b8;
- font-size:14px;
+ font-size:12px;
+ margin:0;
 }
 .card h2{
  margin:10px 0 5px;
- font-size:28px;
+ font-size:27px;
 }
-.green{color:#4ade80}
-.red{color:#f87171}
-.yellow{color:#facc15}
-.blue{color:#60a5fa}
 
-.box{
- background:#111827;
- border:1px solid #1e293b;
- border-radius:14px;
- padding:20px;
- margin-bottom:20px;
-}
 .grid2{
  display:grid;
  grid-template-columns:1fr 1fr;
- gap:20px;
+ gap:18px;
 }
 .grid3{
  display:grid;
@@ -161,128 +144,164 @@ button{
  gap:15px;
 }
 
+.box{
+ background:#111827;
+ border:1px solid #1e293b;
+ border-radius:14px;
+ padding:19px;
+ margin-bottom:18px;
+}
+
+.health{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ height:220px;
+}
+.circle{
+ width:170px;
+ height:170px;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:conic-gradient(#22c55e 0 96%,#1e293b 96% 100%);
+}
+.circle div{
+ width:130px;
+ height:130px;
+ border-radius:50%;
+ background:#111827;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+}
+.circle strong{font-size:35px}
+
 table{
  width:100%;
  border-collapse:collapse;
 }
 th,td{
- padding:12px;
- border-bottom:1px solid #1e293b;
+ padding:11px;
  text-align:left;
+ border-bottom:1px solid #1e293b;
 }
 th{
  color:#94a3b8;
- font-size:13px;
-}
-.badge{
- display:inline-block;
- padding:5px 9px;
- border-radius:20px;
  font-size:12px;
 }
-.online{
+
+.badge{
+ padding:5px 9px;
+ border-radius:20px;
+ font-size:11px;
+}
+.badge.green{
  background:#064e3b;
  color:#6ee7b7;
 }
-.offline{
+.badge.red{
  background:#450a0a;
  color:#fca5a5;
 }
-.warning{
+.badge.yellow{
  background:#713f12;
  color:#fde68a;
 }
 
-input,textarea,select{
- width:100%;
- padding:11px;
- background:#0f172a;
- color:white;
- border:1px solid #334155;
- border-radius:8px;
- margin:6px 0;
-}
-.action{
- padding:9px 13px;
- border:0;
- border-radius:7px;
- background:#2563eb;
- color:white;
- margin:3px;
-}
-.action.redbtn{background:#dc2626}
-.action.greenbtn{background:#16a34a}
-
-.search{
- max-width:350px;
-}
-
-.topology{
- display:flex;
- align-items:center;
- justify-content:center;
- flex-wrap:wrap;
- gap:12px;
- padding:35px 10px;
-}
-.node{
- min-width:120px;
- padding:20px;
- background:#1e293b;
- border:1px solid #475569;
- border-radius:12px;
- text-align:center;
-}
-.arrow{
- font-size:25px;
- color:#60a5fa;
-}
-
-.progress{
+.bar{
  height:10px;
  background:#1e293b;
  border-radius:10px;
  overflow:hidden;
+ margin:8px 0 14px;
 }
-.progress span{
+.bar span{
  display:block;
  height:100%;
  background:#2563eb;
 }
 
-.log{
- padding:10px;
+.activity{
+ padding:11px 0;
  border-bottom:1px solid #1e293b;
+}
+.activity:last-child{border:0}
+
+.nodewrap{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+ flex-wrap:wrap;
+ padding:30px;
+}
+.node{
+ padding:20px;
+ min-width:120px;
+ text-align:center;
+ background:#1e293b;
+ border:1px solid #475569;
+ border-radius:12px;
+}
+.arrow{
+ color:#60a5fa;
+ font-size:24px;
+}
+
+.quick{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;
+}
+.quick button{
+ padding:14px;
+ border:1px solid #334155;
+ border-radius:9px;
+ background:#0f172a;
+ color:white;
+}
+.quick button:hover{background:#1e293b}
+
+input,textarea,select{
+ width:100%;
+ padding:11px;
+ margin:5px 0;
+ background:#0f172a;
+ color:white;
+ border:1px solid #334155;
+ border-radius:8px;
+}
+
+pre{
+ background:#020617;
+ padding:15px;
+ border-radius:9px;
+ overflow:auto;
+ color:#93c5fd;
 }
 
 .footer{
- color:#64748b;
  text-align:center;
- padding:30px;
- font-size:12px;
+ color:#64748b;
+ padding:25px;
 }
 
-@media(max-width:900px){
- .sidebar{width:200px}
- .main{margin-left:200px}
- .cards{grid-template-columns:1fr 1fr}
- .grid2,.grid3{grid-template-columns:1fr}
+@media(max-width:1100px){
+ .cards{grid-template-columns:repeat(3,1fr)}
+ .grid2{grid-template-columns:1fr}
 }
-@media(max-width:650px){
- .sidebar{
-  position:fixed;
-  width:65px;
-  padding:8px;
- }
+@media(max-width:700px){
+ .sidebar{width:65px;padding:8px}
  .logo span,.logo small,.section{display:none}
- .nav{
-  font-size:0;
-  text-align:center;
- }
+ .nav{font-size:0;text-align:center}
  .nav:first-letter{font-size:20px}
- .main{margin-left:65px;padding:12px}
- .cards{grid-template-columns:1fr}
- .topbar{display:block}
+ .main{margin-left:65px;padding:13px}
+ .cards{grid-template-columns:1fr 1fr}
+ .grid3{grid-template-columns:1fr}
+ .quick{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -291,89 +310,81 @@ input,textarea,select{
 
 <!-- LOGIN -->
 <div id="login" class="login">
- <div class="loginbox">
-  <h1>🌐 NOC</h1>
-  <p>Network Operations Center</p>
+<div class="loginbox">
+<h1>🌐 NOC PRO</h1>
+<p>Network Operations Center</p>
 
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
 
-  <button class="primary" style="width:100%" onclick="login()">
-   🔐 Login
-  </button>
+<button class="btn" style="width:100%" onclick="login()">🔐 Login</button>
 
-  <p id="loginError" class="error"></p>
- </div>
+<p id="error" class="offline"></p>
+</div>
 </div>
 
 
-<!-- APPLICATION -->
+<!-- APP -->
 <div id="app" style="display:none">
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
 
- <div class="logo">
-  🌐 <span>NOC CENTER</span>
-  <small>Network Operations</small>
- </div>
+<div class="logo">
+🌐 <span>NOC PRO</span>
+<small>Network Operations Center</small>
+</div>
 
- <button class="nav active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
+<button class="nav active" onclick="show('dashboard',this)">🏠 Dashboard</button>
 
- <div class="section">Network</div>
- <button class="nav" onclick="showPage('topology',this)">🗺️ Network Map</button>
- <button class="nav" onclick="showPage('scanner',this)">🔍 Network Scanner</button>
- <button class="nav" onclick="showPage('devices',this)">🖥️ Device Inventory</button>
- <button class="nav" onclick="showPage('ports',this)">🔌 Port Management</button>
- <button class="nav" onclick="showPage('interfaces',this)">📊 Interfaces</button>
- <button class="nav" onclick="showPage('wifi',this)">📶 Wi-Fi Monitor</button>
- <button class="nav" onclick="showPage('wan',this)">🌍 WAN Monitor</button>
- <button class="nav" onclick="showPage('lan',this)">🏠 LAN Monitor</button>
- <button class="nav" onclick="showPage('vpn',this)">🛰️ VPN Status</button>
- <button class="nav" onclick="showPage('bandwidth',this)">📈 Bandwidth</button>
- <button class="nav" onclick="showPage('latency',this)">⚡ Latency</button>
+<div class="section">Monitoring</div>
+<button class="nav" onclick="show('map',this)">🗺️ Network Map</button>
+<button class="nav" onclick="show('devices',this)">🖥️ Devices</button>
+<button class="nav" onclick="show('monitor',this)">📊 Monitoring</button>
+<button class="nav" onclick="show('traffic',this)">📈 Traffic</button>
+<button class="nav" onclick="show('wifi',this)">📶 Wi-Fi</button>
+<button class="nav" onclick="show('wan',this)">🌍 WAN</button>
+<button class="nav" onclick="show('latency',this)">⚡ Latency</button>
 
- <div class="section">IP & Routing</div>
- <button class="nav" onclick="showPage('ip',this)">📍 IP Manager</button>
- <button class="nav" onclick="showPage('subnet',this)">🧮 Subnet Calculator</button>
- <button class="nav" onclick="showPage('vlan',this)">🧩 VLAN Manager</button>
- <button class="nav" onclick="showPage('routing',this)">🔀 Routing</button>
- <button class="nav" onclick="showPage('dhcp',this)">🚦 DHCP</button>
- <button class="nav" onclick="showPage('dns',this)">🌎 DNS</button>
- <button class="nav" onclick="showPage('arp',this)">🔢 ARP Table</button>
- <button class="nav" onclick="showPage('nat',this)">🔄 NAT Table</button>
+<div class="section">Network</div>
+<button class="nav" onclick="show('scanner',this)">🔍 Scanner</button>
+<button class="nav" onclick="show('ip',this)">📍 IP Manager</button>
+<button class="nav" onclick="show('subnet',this)">🧮 Subnet</button>
+<button class="nav" onclick="show('vlan',this)">🧩 VLAN</button>
+<button class="nav" onclick="show('routing',this)">🔀 Routing</button>
+<button class="nav" onclick="show('dhcp',this)">🚦 DHCP</button>
+<button class="nav" onclick="show('dns',this)">🌎 DNS</button>
+<button class="nav" onclick="show('arp',this)">🔢 ARP</button>
 
- <div class="section">Security</div>
- <button class="nav" onclick="showPage('security',this)">🛡️ Security</button>
- <button class="nav" onclick="showPage('firewall',this)">🧱 Firewall</button>
- <button class="nav" onclick="showPage('access',this)">🔑 Access Control</button>
- <button class="nav" onclick="showPage('audit',this)">🕵️ Audit Log</button>
- <button class="nav" onclick="showPage('ssl',this)">🔒 SSL/TLS</button>
+<div class="section">Security</div>
+<button class="nav" onclick="show('security',this)">🛡️ Security</button>
+<button class="nav" onclick="show('firewall',this)">🧱 Firewall</button>
+<button class="nav" onclick="show('audit',this)">🕵️ Audit</button>
+<button class="nav" onclick="show('ssl',this)">🔒 SSL/TLS</button>
 
- <div class="section">Operations</div>
- <button class="nav" onclick="showPage('alerts',this)">🚨 Alerts</button>
- <button class="nav" onclick="showPage('maintenance',this)">🔧 Maintenance</button>
- <button class="nav" onclick="showPage('backup',this)">💾 Backup</button>
- <button class="nav" onclick="showPage('incidents',this)">🎫 Incidents</button>
- <button class="nav" onclick="showPage('troubleshoot',this)">🧰 Troubleshooting</button>
- <button class="nav" onclick="showPage('logs',this)">📋 System Logs</button>
+<div class="section">Operations</div>
+<button class="nav" onclick="show('alerts',this)">🚨 Alerts</button>
+<button class="nav" onclick="show('incidents',this)">🎫 Incidents</button>
+<button class="nav" onclick="show('maintenance',this)">🔧 Maintenance</button>
+<button class="nav" onclick="show('backup',this)">💾 Backup</button>
+<button class="nav" onclick="show('trouble',this)">🧰 Troubleshooting</button>
+<button class="nav" onclick="show('logs',this)">📋 Logs</button>
 
- <div class="section">Reports</div>
- <button class="nav" onclick="showPage('reports',this)">📊 Reports</button>
- <button class="nav" onclick="showPage('activity',this)">🕒 Activity</button>
+<div class="section">Reports</div>
+<button class="nav" onclick="show('reports',this)">📊 Reports</button>
+<button class="nav" onclick="show('activity',this)">🕒 Activity</button>
 
- <div class="section">TJKT Lab</div>
- <button class="nav" onclick="showPage('linux',this)">🐧 Linux Lab</button>
- <button class="nav" onclick="showPage('networklab',this)">🌐 Networking Lab</button>
- <button class="nav" onclick="showPage('subnetlab',this)">🧮 Subnet Practice</button>
- <button class="nav" onclick="showPage('routinglab',this)">🔀 Routing Practice</button>
- <button class="nav" onclick="showPage('commands',this)">⌨️ Commands</button>
- <button class="nav" onclick="showPage('notes',this)">📝 Notes</button>
+<div class="section">TJKT LAB</div>
+<button class="nav" onclick="show('linux',this)">🐧 Linux Lab</button>
+<button class="nav" onclick="show('networklab',this)">🌐 Network Lab</button>
+<button class="nav" onclick="show('subnetlab',this)">🧮 Subnet Practice</button>
+<button class="nav" onclick="show('routinglab',this)">🔀 Routing Lab</button>
+<button class="nav" onclick="show('commands',this)">⌨️ Commands</button>
+<button class="nav" onclick="show('notes',this)">📝 Notes</button>
 
- <div class="section">System</div>
- <button class="nav" onclick="showPage('users',this)">👥 Users</button>
- <button class="nav" onclick="showPage('settings',this)">⚙️ Settings</button>
- <button class="nav" onclick="logout()">🚪 Logout</button>
+<div class="section">System</div>
+<button class="nav" onclick="show('users',this)">👥 Users</button>
+<button class="nav" onclick="show('settings',this)">⚙️ Settings</button>
+<button class="nav" onclick="logout()">🚪 Logout</button>
 
 </aside>
 
@@ -383,387 +394,905 @@ input,textarea,select{
 <!-- DASHBOARD -->
 <section id="dashboard" class="page active">
 
- <div class="topbar">
-  <div>
-   <h1>Network Operations Center</h1>
-   <p>Monitoring & Network Management Dashboard</p>
-  </div>
-  <div class="status">● SYSTEM ONLINE</div>
- </div>
+<div class="topbar">
+<div>
+<h1>Network Operations Center</h1>
+<p>Real-time network overview</p>
+</div>
 
- <div class="cards">
-  <div class="card">
-   <h3>🖥️ DEVICES</h3>
-   <h2>24</h2>
-   <span class="green">22 Online</span>
-  </div>
-  <div class="card">
-   <h3>🔌 PORTS</h3>
-   <h2>96</h2>
-   <span class="green">87 Active</span>
-  </div>
-  <div class="card">
-   <h3>📈 BANDWIDTH</h3>
-   <h2>68 Mbps</h2>
-   <span class="blue">Normal</span>
-  </div>
-  <div class="card">
-   <h3>🚨 ALERTS</h3>
-   <h2>3</h2>
-   <span class="yellow">Attention</span>
-  </div>
- </div>
+<div class="online">● SYSTEM OPERATIONAL</div>
+</div>
 
- <div class="grid2">
 
-  <div class="box">
-   <h2>Network Health</h2>
-   <p>Internet</p>
-   <div class="progress"><span style="width:98%"></span></div>
+<div class="cards">
 
-   <p>LAN</p>
-   <div class="progress"><span style="width:96%"></span></div>
+<div class="card">
+<h3>DEVICES</h3>
+<h2>24</h2>
+<span class="online">22 Online</span>
+</div>
 
-   <p>Server</p>
-   <div class="progress"><span style="width:99%"></span></div>
-  </div>
+<div class="card">
+<h3>UPTIME</h3>
+<h2>99.8%</h2>
+<span class="online">Excellent</span>
+</div>
 
-  <div class="box">
-   <h2>System Status</h2>
-   <p>🌍 Internet <b class="green">Online</b></p>
-   <p>📡 Router <b class="green">Online</b></p>
-   <p>🔀 Core Switch <b class="green">Online</b></p>
-   <p>🖥️ Server <b class="green">Online</b></p>
-   <p>📶 Access Point <b class="yellow">Warning</b></p>
-  </div>
+<div class="card">
+<h3>TRAFFIC</h3>
+<h2>110 Mbps</h2>
+<span class="blue">Normal</span>
+</div>
 
- </div>
+<div class="card">
+<h3>LATENCY</h3>
+<h2>18 ms</h2>
+<span class="online">Good</span>
+</div>
 
- <div class="box">
-  <h2>Recent Activity</h2>
-  <div class="log">09:20 — Router configuration backup completed</div>
-  <div class="log">09:15 — Device SW-02 detected</div>
-  <div class="log">09:05 — Network scan completed</div>
-  <div class="log">08:45 — AP-03 connection restored</div>
- </div>
+<div class="card">
+<h3>ALERTS</h3>
+<h2>3</h2>
+<span class="warning">Attention</span>
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+<div class="box">
+
+<h2>🟢 Network Health</h2>
+
+<div class="health">
+<div class="circle">
+<div>
+<strong>96%</strong>
+<span>Healthy</span>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>📊 Resource Usage</h2>
+
+<p>Bandwidth — 68%</p>
+<div class="bar"><span style="width:68%"></span></div>
+
+<p>CPU Server — 42%</p>
+<div class="bar"><span style="width:42%"></span></div>
+
+<p>RAM Server — 58%</p>
+<div class="bar"><span style="width:58%"></span></div>
+
+<p>Storage — 63%</p>
+<div class="bar"><span style="width:63%"></span></div>
+
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+<div class="box">
+
+<h2>🖥️ Device Status</h2>
+
+<table>
+<tr>
+<th>Device</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Router-01</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>Switch-Core</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>Server-01</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>AP-03</td>
+<td><span class="badge red">OFFLINE</span></td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="box">
+
+<h2>🚨 Live Alerts</h2>
+
+<div class="activity">
+🟡 AP-03 disconnected
+</div>
+
+<div class="activity">
+🔴 Switch port Gi0/3 down
+</div>
+
+<div class="activity">
+🟡 Bandwidth above 70%
+</div>
+
+<div class="activity">
+🟢 Router backup completed
+</div>
+
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>⚡ Quick Actions</h2>
+
+<div class="quick">
+
+<button onclick="show('scanner')">🔍 Scan Network</button>
+<button onclick="show('devices')">🖥️ Devices</button>
+<button onclick="show('alerts')">🚨 Alerts</button>
+<button onclick="show('reports')">📊 Reports</button>
+
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>🕒 Recent Activity</h2>
+
+<div class="activity">09:30 — Network scan completed</div>
+<div class="activity">09:20 — Configuration backup completed</div>
+<div class="activity">09:15 — New device detected</div>
+<div class="activity">09:05 — Admin login successful</div>
+<div class="activity">08:55 — AP-03 disconnected</div>
+
+</div>
 
 </section>
 
 
-<!-- TOPOLOGY -->
-<section id="topology" class="page">
+<!-- MAP -->
+<section id="map" class="page">
+
 <h1>🗺️ Network Map</h1>
 
 <div class="box">
- <div class="topology">
-  <div class="node">🌍<br><b>Internet</b><br>WAN</div>
-  <div class="arrow">→</div>
-  <div class="node">📡<br><b>Router</b><br>192.168.1.1</div>
-  <div class="arrow">→</div>
-  <div class="node">🔀<br><b>Core Switch</b><br>VLAN 10</div>
-  <div class="arrow">→</div>
-  <div class="node">🖥️<br><b>Server</b><br>192.168.1.10</div>
- </div>
+
+<div class="nodewrap">
+
+<div class="node">🌍<br><b>Internet</b><br>WAN</div>
+
+<div class="arrow">→</div>
+
+<div class="node">📡<br><b>Router</b><br>192.168.1.1</div>
+
+<div class="arrow">→</div>
+
+<div class="node">🔀<br><b>Core Switch</b><br>VLAN 10</div>
+
+<div class="arrow">→</div>
+
+<div class="node">🖥️<br><b>Server</b><br>192.168.1.10</div>
+
 </div>
 
-<div class="grid3">
- <div class="card">Router<br><span class="green">● Online</span></div>
- <div class="card">Switch<br><span class="green">● Online</span></div>
- <div class="card">Server<br><span class="green">● Online</span></div>
-</div>
-</section>
-
-
-<!-- SCANNER -->
-<section id="scanner" class="page">
-<h1>🔍 Network Scanner</h1>
-
-<div class="box">
- <p>Network: <b>192.168.1.0/24</b></p>
- <button class="action" onclick="scanNetwork()">🔍 Start Scan</button>
- <p id="scanResult"></p>
 </div>
 
-<div class="box">
-<table>
-<tr><th>IP</th><th>Hostname</th><th>Type</th><th>Status</th></tr>
-<tr><td>192.168.1.1</td><td>router</td><td>Router</td><td class="green">Online</td></tr>
-<tr><td>192.168.1.2</td><td>switch-core</td><td>Switch</td><td class="green">Online</td></tr>
-<tr><td>192.168.1.10</td><td>server-01</td><td>Server</td><td class="green">Online</td></tr>
-<tr><td>192.168.1.20</td><td>ap-01</td><td>Access Point</td><td class="red">Offline</td></tr>
-</table>
-</div>
 </section>
 
 
 <!-- DEVICES -->
 <section id="devices" class="page">
+
 <h1>🖥️ Device Inventory</h1>
+
 <div class="box">
-<input class="search" placeholder="🔎 Search device..." onkeyup="filterTable(this)">
+
 <table>
-<tr><th>Device</th><th>IP</th><th>MAC</th><th>Type</th><th>Status</th></tr>
-<tr><td>Router-01</td><td>192.168.1.1</td><td>AA:11:22:33:44:01</td><td>Router</td><td class="green">Online</td></tr>
-<tr><td>Switch-Core</td><td>192.168.1.2</td><td>AA:11:22:33:44:02</td><td>Switch</td><td class="green">Online</td></tr>
-<tr><td>Server-01</td><td>192.168.1.10</td><td>AA:11:22:33:44:10</td><td>Server</td><td class="green">Online</td></tr>
-<tr><td>AP-01</td><td>192.168.1.20</td><td>AA:11:22:33:44:20</td><td>Access Point</td><td class="red">Offline</td></tr>
+
+<tr>
+<th>Device</th>
+<th>IP</th>
+<th>Type</th>
+<th>Uptime</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Router-01</td>
+<td>192.168.1.1</td>
+<td>Router</td>
+<td>32d</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>Switch-Core</td>
+<td>192.168.1.2</td>
+<td>Switch</td>
+<td>18d</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>Server-01</td>
+<td>192.168.1.10</td>
+<td>Server</td>
+<td>12d</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>AP-03</td>
+<td>192.168.1.23</td>
+<td>Access Point</td>
+<td>0d</td>
+<td><span class="badge red">OFFLINE</span></td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
-<!-- PORTS -->
-<section id="ports" class="page">
-<h1>🔌 Port Management</h1>
-<div class="box">
-<table>
-<tr><th>Port</th><th>Device</th><th>Speed</th><th>Status</th></tr>
-<tr><td>Gi0/1</td><td>Router</td><td>1 Gbps</td><td class="green">UP</td></tr>
-<tr><td>Gi0/2</td><td>Server</td><td>1 Gbps</td><td class="green">UP</td></tr>
-<tr><td>Gi0/3</td><td>Access Point</td><td>1 Gbps</td><td class="red">DOWN</td></tr>
-<tr><td>Gi0/4</td><td>PC-01</td><td>1 Gbps</td><td class="green">UP</td></tr>
-</table>
+<!-- MONITOR -->
+<section id="monitor" class="page">
+
+<h1>📊 Monitoring</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>CPU</h3>
+<h2>42%</h2>
 </div>
+
+<div class="card">
+<h3>RAM</h3>
+<h2>58%</h2>
+</div>
+
+<div class="card">
+<h3>STORAGE</h3>
+<h2>63%</h2>
+</div>
+
+<div class="card">
+<h3>UPTIME</h3>
+<h2>99.8%</h2>
+</div>
+
+<div class="card">
+<h3>LOAD</h3>
+<h2>0.72</h2>
+</div>
+
+</div>
+
 </section>
 
 
-<!-- INTERFACES -->
-<section id="interfaces" class="page">
-<h1>📊 Interface Statistics</h1>
-<div class="grid3">
-<div class="card"><h3>WAN</h3><h2>68 Mbps</h2><span class="green">UP</span></div>
-<div class="card"><h3>LAN</h3><h2>42 Mbps</h2><span class="green">UP</span></div>
-<div class="card"><h3>Management</h3><h2>4 Mbps</h2><span class="green">UP</span></div>
+<!-- TRAFFIC -->
+<section id="traffic" class="page">
+
+<h1>📈 Traffic Analytics</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>DOWNLOAD</h3>
+<h2>85 Mbps</h2>
 </div>
+
+<div class="card">
+<h3>UPLOAD</h3>
+<h2>25 Mbps</h2>
+</div>
+
+<div class="card">
+<h3>TOTAL</h3>
+<h2>110 Mbps</h2>
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>Traffic Usage</h2>
+
+<p>Current Usage</p>
+<div class="bar"><span style="width:68%"></span></div>
+
+<p>Peak Usage</p>
+<div class="bar"><span style="width:82%"></span></div>
+
+</div>
+
 </section>
 
 
 <!-- WIFI -->
 <section id="wifi" class="page">
+
 <h1>📶 Wi-Fi Monitor</h1>
+
 <div class="box">
+
 <table>
-<tr><th>AP</th><th>SSID</th><th>Clients</th><th>Signal</th><th>Status</th></tr>
-<tr><td>AP-01</td><td>TJKT-NET</td><td>18</td><td>-45 dBm</td><td class="green">Online</td></tr>
-<tr><td>AP-02</td><td>TJKT-GUEST</td><td>8</td><td>-52 dBm</td><td class="green">Online</td></tr>
-<tr><td>AP-03</td><td>TJKT-LAB</td><td>0</td><td>-</td><td class="red">Offline</td></tr>
+<tr>
+<th>Access Point</th>
+<th>SSID</th>
+<th>Clients</th>
+<th>Signal</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>AP-01</td>
+<td>TJKT-NET</td>
+<td>18</td>
+<td>-45 dBm</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>AP-02</td>
+<td>TJKT-GUEST</td>
+<td>8</td>
+<td>-52 dBm</td>
+<td><span class="badge green">ONLINE</span></td>
+</tr>
+
+<tr>
+<td>AP-03</td>
+<td>TJKT-LAB</td>
+<td>0</td>
+<td>-</td>
+<td><span class="badge red">OFFLINE</span></td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- WAN -->
 <section id="wan" class="page">
+
 <h1>🌍 WAN Monitor</h1>
+
 <div class="cards">
-<div class="card"><h3>Latency</h3><h2>18 ms</h2></div>
-<div class="card"><h3>Download</h3><h2>85 Mbps</h2></div>
-<div class="card"><h3>Upload</h3><h2>25 Mbps</h2></div>
-<div class="card"><h3>Packet Loss</h3><h2>0.2%</h2></div>
+
+<div class="card">
+<h3>LATENCY</h3>
+<h2>18 ms</h2>
 </div>
-</section>
 
-
-<!-- LAN -->
-<section id="lan" class="page">
-<h1>🏠 LAN Monitor</h1>
-<div class="box">
-<p>LAN Status <b class="green">Online</b></p>
-<p>Gateway: <b>192.168.1.1</b></p>
-<p>Subnet: <b>192.168.1.0/24</b></p>
-<p>Active Clients: <b>38</b></p>
+<div class="card">
+<h3>DOWNLOAD</h3>
+<h2>85 Mbps</h2>
 </div>
-</section>
 
-
-<!-- VPN -->
-<section id="vpn" class="page">
-<h1>🛰️ VPN Status</h1>
-<div class="box">
-<table>
-<tr><th>Name</th><th>Type</th><th>Remote</th><th>Status</th></tr>
-<tr><td>VPN-LAB</td><td>WireGuard</td><td>10.10.0.2</td><td class="green">Connected</td></tr>
-<tr><td>VPN-SERVER</td><td>OpenVPN</td><td>10.20.0.2</td><td class="yellow">Idle</td></tr>
-</table>
+<div class="card">
+<h3>UPLOAD</h3>
+<h2>25 Mbps</h2>
 </div>
-</section>
 
-
-<!-- BANDWIDTH -->
-<section id="bandwidth" class="page">
-<h1>📈 Bandwidth Monitor</h1>
-<div class="cards">
-<div class="card"><h3>Download</h3><h2>85 Mbps</h2></div>
-<div class="card"><h3>Upload</h3><h2>25 Mbps</h2></div>
-<div class="card"><h3>Total Traffic</h3><h2>110 Mbps</h2></div>
-<div class="card"><h3>Usage</h3><h2>42%</h2></div>
+<div class="card">
+<h3>PACKET LOSS</h3>
+<h2>0.2%</h2>
 </div>
+
+</div>
+
 </section>
 
 
 <!-- LATENCY -->
 <section id="latency" class="page">
+
 <h1>⚡ Latency Monitor</h1>
+
 <div class="box">
+
 <table>
-<tr><th>Target</th><th>Latency</th><th>Packet Loss</th><th>Status</th></tr>
-<tr><td>Gateway</td><td>1 ms</td><td>0%</td><td class="green">Good</td></tr>
-<tr><td>Google DNS</td><td>18 ms</td><td>0%</td><td class="green">Good</td></tr>
-<tr><td>Cloud Server</td><td>42 ms</td><td>1%</td><td class="yellow">Warning</td></tr>
+
+<tr>
+<th>Target</th>
+<th>Latency</th>
+<th>Packet Loss</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Gateway</td>
+<td>1 ms</td>
+<td>0%</td>
+<td class="online">Good</td>
+</tr>
+
+<tr>
+<td>8.8.8.8</td>
+<td>18 ms</td>
+<td>0%</td>
+<td class="online">Good</td>
+</tr>
+
+<tr>
+<td>Cloud Server</td>
+<td>42 ms</td>
+<td>1%</td>
+<td class="warning">Warning</td>
+</tr>
+
 </table>
+
 </div>
+
+</section>
+
+
+<!-- SCANNER -->
+<section id="scanner" class="page">
+
+<h1>🔍 Network Scanner</h1>
+
+<div class="box">
+
+<p>Network: <b>192.168.1.0/24</b></p>
+
+<button class="btn" onclick="scan()">🔍 Start Scan</button>
+
+<p id="scan"></p>
+
+</div>
+
 </section>
 
 
 <!-- IP -->
 <section id="ip" class="page">
+
 <h1>📍 IP Address Manager</h1>
+
 <div class="box">
+
 <table>
-<tr><th>Device</th><th>IP Address</th><th>Subnet</th><th>Gateway</th></tr>
-<tr><td>Router</td><td>192.168.1.1</td><td>/24</td><td>-</td></tr>
-<tr><td>Server</td><td>192.168.1.10</td><td>/24</td><td>192.168.1.1</td></tr>
-<tr><td>PC-01</td><td>192.168.1.50</td><td>/24</td><td>192.168.1.1</td></tr>
-<tr><td>AP-01</td><td>192.168.1.20</td><td>/24</td><td>192.168.1.1</td></tr>
+
+<tr>
+<th>Device</th>
+<th>IP</th>
+<th>Subnet</th>
+<th>Gateway</th>
+</tr>
+
+<tr>
+<td>Router</td>
+<td>192.168.1.1</td>
+<td>/24</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td>192.168.1.10</td>
+<td>/24</td>
+<td>192.168.1.1</td>
+</tr>
+
+<tr>
+<td>PC-01</td>
+<td>192.168.1.50</td>
+<td>/24</td>
+<td>192.168.1.1</td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- SUBNET -->
 <section id="subnet" class="page">
+
 <h1>🧮 Subnet Calculator</h1>
+
 <div class="box">
+
 <input id="subnetInput" value="192.168.1.0/24">
-<button class="action" onclick="calculateSubnet()">Calculate</button>
+
+<button class="btn" onclick="subnet()">Calculate</button>
+
 <div id="subnetResult"></div>
+
 </div>
+
 </section>
 
 
 <!-- VLAN -->
 <section id="vlan" class="page">
+
 <h1>🧩 VLAN Manager</h1>
+
 <div class="box">
+
 <table>
-<tr><th>VLAN</th><th>Name</th><th>Network</th><th>Purpose</th></tr>
-<tr><td>10</td><td>Management</td><td>192.168.10.0/24</td><td>Network Admin</td></tr>
-<tr><td>20</td><td>Students</td><td>192.168.20.0/24</td><td>Student Devices</td></tr>
-<tr><td>30</td><td>Server</td><td>192.168.30.0/24</td><td>Servers</td></tr>
-<tr><td>40</td><td>Guest</td><td>192.168.40.0/24</td><td>Guest Network</td></tr>
+
+<tr>
+<th>VLAN</th>
+<th>Name</th>
+<th>Network</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>10</td>
+<td>Management</td>
+<td>192.168.10.0/24</td>
+<td>Admin</td>
+</tr>
+
+<tr>
+<td>20</td>
+<td>Students</td>
+<td>192.168.20.0/24</td>
+<td>Students</td>
+</tr>
+
+<tr>
+<td>30</td>
+<td>Server</td>
+<td>192.168.30.0/24</td>
+<td>Servers</td>
+</tr>
+
+<tr>
+<td>40</td>
+<td>Guest</td>
+<td>192.168.40.0/24</td>
+<td>Guest</td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- ROUTING -->
 <section id="routing" class="page">
+
 <h1>🔀 Routing Table</h1>
+
 <div class="box">
+
 <table>
-<tr><th>Destination</th><th>Gateway</th><th>Interface</th><th>Type</th></tr>
-<tr><td>0.0.0.0/0</td><td>192.168.1.1</td><td>WAN</td><td>Default</td></tr>
-<tr><td>192.168.10.0/24</td><td>Direct</td><td>LAN</td><td>Connected</td></tr>
-<tr><td>192.168.20.0/24</td><td>192.168.1.1</td><td>LAN</td><td>Static</td></tr>
+
+<tr>
+<th>Destination</th>
+<th>Gateway</th>
+<th>Interface</th>
+<th>Type</th>
+</tr>
+
+<tr>
+<td>0.0.0.0/0</td>
+<td>192.168.1.1</td>
+<td>WAN</td>
+<td>Default</td>
+</tr>
+
+<tr>
+<td>192.168.10.0/24</td>
+<td>Direct</td>
+<td>LAN</td>
+<td>Connected</td>
+</tr>
+
+<tr>
+<td>192.168.20.0/24</td>
+<td>192.168.1.1</td>
+<td>LAN</td>
+<td>Static</td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- DHCP -->
 <section id="dhcp" class="page">
-<h1>🚦 DHCP Management</h1>
+
+<h1>🚦 DHCP</h1>
+
 <div class="box">
-<p>DHCP Server: <span class="green">Active</span></p>
+
+<p>DHCP Server: <span class="online">ACTIVE</span></p>
 <p>Pool: 192.168.1.100 - 192.168.1.200</p>
 <p>Leases: 38 / 101</p>
+
+<div class="bar">
+<span style="width:38%"></span>
 </div>
+
+</div>
+
 </section>
 
 
 <!-- DNS -->
 <section id="dns" class="page">
-<h1>🌎 DNS Management</h1>
+
+<h1>🌎 DNS</h1>
+
 <div class="box">
+
 <table>
-<tr><th>DNS Server</th><th>Address</th><th>Status</th></tr>
-<tr><td>Google DNS</td><td>8.8.8.8</td><td class="green">Online</td></tr>
-<tr><td>Cloudflare DNS</td><td>1.1.1.1</td><td class="green">Online</td></tr>
+
+<tr>
+<th>Server</th>
+<th>Address</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Google</td>
+<td>8.8.8.8</td>
+<td class="online">Online</td>
+</tr>
+
+<tr>
+<td>Cloudflare</td>
+<td>1.1.1.1</td>
+<td class="online">Online</td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- ARP -->
 <section id="arp" class="page">
+
 <h1>🔢 ARP Table</h1>
-<div class="box">
-<table>
-<tr><th>IP</th><th>MAC</th><th>Interface</th></tr>
-<tr><td>192.168.1.1</td><td>AA:BB:CC:11:22:01</td><td>LAN</td></tr>
-<tr><td>192.168.1.10</td><td>AA:BB:CC:11:22:10</td><td>LAN</td></tr>
-<tr><td>192.168.1.20</td><td>AA:BB:CC:11:22:20</td><td>LAN</td></tr>
-</table>
-</div>
-</section>
 
-
-<!-- NAT -->
-<section id="nat" class="page">
-<h1>🔄 NAT Table</h1>
 <div class="box">
+
 <table>
-<tr><th>Private</th><th>Public</th><th>Protocol</th><th>Status</th></tr>
-<tr><td>192.168.1.10:80</td><td>Public:80</td><td>TCP</td><td class="green">Active</td></tr>
-<tr><td>192.168.1.10:443</td><td>Public:443</td><td>TCP</td><td class="green">Active</td></tr>
+
+<tr>
+<th>IP</th>
+<th>MAC</th>
+<th>Interface</th>
+</tr>
+
+<tr>
+<td>192.168.1.1</td>
+<td>AA:BB:CC:11:22:01</td>
+<td>LAN</td>
+</tr>
+
+<tr>
+<td>192.168.1.10</td>
+<td>AA:BB:CC:11:22:10</td>
+<td>LAN</td>
+</tr>
+
 </table>
+
 </div>
+
 </section>
 
 
 <!-- SECURITY -->
 <section id="security" class="page">
-<h1>🛡️ Security Dashboard</h1>
+
+<h1>🛡️ Security Center</h1>
+
 <div class="cards">
-<div class="card"><h3>Threats</h3><h2>0</h2><span class="green">Clean</span></div>
-<div class="card"><h3>Blocked</h3><h2>27</h2></div>
-<div class="card"><h3>Firewall</h3><h2>ON</h2><span class="green">Protected</span></div>
-<div class="card"><h3>SSL</h3><h2>Valid</h2><span class="green">Secure</span></div>
+
+<div class="card">
+<h3>THREATS</h3>
+<h2>0</h2>
+<span class="online">Clean</span>
 </div>
+
+<div class="card">
+<h3>BLOCKED</h3>
+<h2>27</h2>
+</div>
+
+<div class="card">
+<h3>FIREWALL</h3>
+<h2>ON</h2>
+<span class="online">Protected</span>
+</div>
+
+<div class="card">
+<h3>SSL</h3>
+<h2>VALID</h2>
+<span class="online">Secure</span>
+</div>
+
+</div>
+
 </section>
 
 
 <!-- FIREWALL -->
 <section id="firewall" class="page">
-<h1>🧱 Firewall Status</h1>
-<div class="box">
-<p>Firewall: <b class="green">ACTIVE</b></p>
-<p>Inbound Rules: <b>18</b></p>
-<p>Outbound Rules: <b>12</b></p>
-<p>Blocked Connections: <b>27</b></p>
-</div>
-</section>
 
+<h1>🧱 Firewall</h1>
 
-<!-- ACCESS -->
-<section id="access" class="page">
-<h1>🔑 Access Control</h1>
 <div class="box">
-<table>
-<tr><th>User</th><th>Role</th><th>Access</th></tr>
-<tr><td>admin</td><td>Administrator</td><td class="green">Full</td></tr>
-<tr><td>operator</td><td>Operator</td><td class="yellow">Limited</td></tr>
-<tr><td>viewer</td><td>Viewer</td><td>Read Only</td></tr>
-</table>
+
+<p>Status: <b class="online">ACTIVE</b></p>
+<p>Inbound Rules: 18</p>
+<p>Outbound Rules: 12</p>
+<p>Blocked Connections: 27</p>
+
 </div>
+
 </section>
 
 
 <!-- AUDIT -->
 <section id="audit" class="page">
+
 <h1>🕵️ Audit Log</h1>
+
 <div class="box">
-<div class="log">admin — Login successful</div>
-<div class="log">admin — Opened Device Inventory</div>
-<div class="log">operator — Viewed Network Map</div>
-<div class="log">admin — Back
+
+<div class="activity">admin — Login successful</div>
+<div class="activity">admin — Opened Dashboard</div>
+<div class="activity">admin — Started network scan</div>
+<div class="activity">admin — Viewed devices</div>
+
+</div>
+
+</section>
+
+
+<!-- SSL -->
+<section id="ssl" class="page">
+
+<h1>🔒 SSL/TLS</h1>
+
+<div class="box">
+
+<p>HTTPS: <b class="online">Enabled</b></p>
+<p>Certificate: <b class="online">Valid</b></p>
+<p>Platform: GitHub Pages</p>
+<p>Protocol: TLS</p>
+
+</div>
+
+</section>
+
+
+<!-- ALERTS -->
+<section id="alerts" class="page">
+
+<h1>🚨 Alerts</h1>
+
+<div class="box">
+
+<div class="activity">🔴 Switch Gi0/3 — DOWN</div>
+<div class="activity">🟡 AP-03 — OFFLINE</div>
+<div class="activity">🟡 Bandwidth — 70%</div>
+<div class="activity">🟢 Backup — COMPLETED</div>
+
+</div>
+
+</section>
+
+
+<!-- INCIDENT -->
+<section id="incidents" class="page">
+
+<h1>🎫 Incident Management</h1>
+
+<div class="box">
+
+<input id="incidentInput" placeholder="Tulis incident...">
+
+<button class="btn" onclick="incident()">Create Incident</button>
+
+<div id="incidentList"></div>
+
+</div>
+
+</section>
+
+
+<!-- MAINTENANCE -->
+<section id="maintenance" class="page">
+
+<h1>🔧 Maintenance</h1>
+
+<div class="box">
+
+<table>
+
+<tr>
+<th>Task</th>
+<th>Device</th>
+<th>Schedule</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Router Backup</td>
+<td>Router-01</td>
+<td>Daily</td>
+<td class="online">Done</td>
+</tr>
+
+<tr>
+<td>Firmware Check</td>
+<td>Switch-Core</td>
+<td>Weekly</td>
+<td class="warning">Pending</td>
+</tr>
+
+<tr>
+<td>Server Update</td>
+<td>Server-01</td>
+<td>Monthly</td>
+<td class="online">Done</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- BACKUP -->
+<section id="backup" class="page">
+
+<h1>💾 Backup Manager</h1>
+
+<div class="box">
+
+<button class="btn" onclick="backup()">💾 Create Backup</button>
+
+<p id="backupResult"></p>
+
+<
